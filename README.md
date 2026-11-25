@@ -38,3 +38,10 @@ The other decision is that the input is a plain mapping, not a bespoke graph cla
 ## Awkward edge
 
 The order of components in the returned list is the order Tarjan's algorithm finishes them, which is a reverse topological order of the condensation.  That is stable and occasionally useful, but it is *not* sorted by vertex and it is *not* the order the vertices first appear in your dict.  If you need a deterministic presentation, sort each component yourself.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
